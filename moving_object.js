@@ -35,5 +35,18 @@
     return ((this.radius + otherObject.radius) > distance)
   }
 
+  MovingObject.prototype.isOffTheGrid = function(gridx, gridy){
+    if(this.posx < 0){
+      return [(this.posx + gridx), this.posy];
+    }else if(this.posx > gridx){
+      return [(this.posx - gridx), this.posy]
+    }else if(this.posy < 0){
+      return [this.posx, (this.posy + gridy)]
+    }else if(this.posy > gridy){
+      return [this.posx, (this.posy - gridy)]
+    }else{
+      return false
+    }
+  }
 
 })(this);

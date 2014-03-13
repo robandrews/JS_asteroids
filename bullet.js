@@ -3,6 +3,7 @@
 
   var Bullet = Asteroids.Bullet = function(posx, posy, direction, game) {
     this.game = game;
+    this.counter = 0
     Asteroids.MovingObject.call(this, posx, posy, direction[0]*10, direction[1]*10, Bullet.RADIUS, Bullet.COLOR )
   }
 
@@ -12,7 +13,7 @@
   Bullet.COLOR = "black";
 
   Bullet.prototype.hitAsteroids = function() {
-    that = this
+    var that = this
     this.game.asteroids.forEach( function (el) {
       if (el.isCollidedWith(that)){
         that.game.removeAsteroid(el);

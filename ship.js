@@ -14,10 +14,8 @@
   Ship.prototype.getVector = function() {
     var x = this.radius * Math.sin(this.rotation);
     var y = this.radius * Math.cos(this.rotation);
-    // var mag = Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2))
-
-    // return [(x / mag), (y / mag)];
-    return [(x/10), (y/10)];
+    var mag = Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2))
+    return [(x / mag), (y / mag)];
   }
 
   Ship.prototype.draw = function(ctx) {
@@ -49,7 +47,6 @@
       false
     );
     ctx.fill();
-
 
   }
 

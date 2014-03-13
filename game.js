@@ -9,9 +9,7 @@
     this.DIM_X = this.canvas.width;
     this.DIM_Y = this.canvas.height;
   }
-
-
-
+  
   Game.prototype.addAsteroids = function (numAsteroids) {
     for(var i = 0; i < numAsteroids; i++){
       this.asteroids.push( Asteroids.Asteroid.randomAsteroid(this.DIM_X, this.DIM_Y) );
@@ -43,7 +41,9 @@
 
     this.bullets.forEach( function(el) {
       el.move();
+      el.counter++;
       el.hitAsteroids();
+      console.log(el.counter);
     })
 
     this.ship.move();
@@ -54,13 +54,13 @@
   }
 
   Game.prototype.removeAsteroid = function(asteroid){
-    // var asteroid_index = this.asteroids.indexOf(asteroid);
- //    this.asteroids.splice(asteroid_index, 1);
+    var asteroid_index = this.asteroids.indexOf(asteroid);
+    this.asteroids.splice(asteroid_index, 1);
   }
 
   Game.prototype.removeBullet = function(bullet){
-    // var bullet_index = this.bullets.indexOf(bullet);
- //    this.bullets.splice(bullet_index, 1);
+    var bullet_index = this.bullets.indexOf(bullet);
+    this.bullets.splice(bullet_index, 1);
   }
 
   Game.prototype.step = function(ctx){
@@ -68,6 +68,7 @@
     this.checkBoundaries.call(this);
     this.draw.call(this, ctx);
     this.checkCollisions();
+    this.checkBoundaries()
   }
 
   Game.prototype.checkCollisions = function() {
@@ -75,7 +76,6 @@
     var crashed = this.asteroids.some( function (el) {
       return el.isCollidedWith(that.ship);
     });
-
     if(crashed){
       alert("Game over!");
       that.stop();
@@ -84,9 +84,27 @@
 
   Game.prototype.checkBoundaries = function() {
     var that = this;
-    this.asteroids = this.asteroids.filter(function(el) {
-      return !(el.posx >= that.DIM_X || el.posy >= that.DIM_Y || el.posx < 0 || el.posy < 0)
-    });
+    
+    this.asteroids.forEach(function(asteroid){
+      var off = asteroid.isOffTheGrid(that.DIM_X, that.DIM_Y)
+      if(off){
+        asteroid.posx = off[0];
+        asteroid.posy = off[1];
+      }
+    })
+    var removals = []
+    this.bullets.forEach(function(bullet){
+      var off = bullet.isOffTheGrid(that.DIM_X, that.DIM_Y)
+      if(off){
+        bullet.posx = off[0];
+        bullet.posy = off[1];
+      }else if(bullet.counter > 150){
+        removals.push(that.bullets.indexOf(bullet));
+      }
+    })
+    removals.forEach(function(idx){
+      that.bullets.splice(idx, 1);
+    }) 
   }
 
   Game.prototype.bindKeyHandlers = function(){
@@ -100,10 +118,9 @@
     });
 
     key("up", function () {
-      debugger
       var vector = that.ship.getVector()
-      that.ship.vx = that.ship.vx + vector[0]
-      that.ship.vy = that.ship.vy + vector[1]
+      that.ship.vx = (that.ship.vx + vector[0]*0.1)
+      that.ship.vy = (that.ship.vy + vector[1]*0.1)
     });
 
     key("space", that.fireBullet.bind(that));
@@ -114,11 +131,11 @@
   }
 
   Game.prototype.start = function() {
-    this.addAsteroids(20);
+    this.addAsteroids(10);
     this.addShips();
     this.bindKeyHandlers();
     var context = this.canvas.getContext('2d');
-    this.handle = setInterval( this.step.bind(this, context), 20 );
+    this.handle = setInterval( this.step.bind(this, context), 0.5 );
   }
 
 
