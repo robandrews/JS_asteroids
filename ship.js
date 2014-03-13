@@ -54,8 +54,10 @@
   Ship.prototype.move = function(){
     this.posx = this.posx + (this.vx * 0.995);
     this.posy = this.posy + (this.vy * 0.995);
-    this.rotational_velocity = 0.99 * this.rotational_velocity
-    this.rotation = this.rotation + (this.rotational_velocity * (Math.PI/180));
+    
+    // commented out inertia for rotational movement
+    // this.rotational_velocity = 0.99 * this.rotational_velocity
+    // this.rotation = this.rotation + (this.rotational_velocity * (Math.PI/180));
     
   }
   Ship.prototype.fireBullet = function(game){

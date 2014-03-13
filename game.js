@@ -35,6 +35,7 @@
   }
 
   Game.prototype.move = function () {
+    this.updateVelocities();
     this.asteroids.forEach( function(el) {
       el.move();
     });
@@ -43,9 +44,29 @@
       el.move();
       el.counter++;
       el.hitAsteroids();
-    })
+    });
 
     this.ship.move();
+  }
+
+  Game.prototype.updateVelocities = function(){
+    that = this;
+    if(key.isPressed("left")){
+      // that.ship.rotation_velocity += 0.05 // commented out inertia for rotational movement
+      that.ship.rotation += 0.03;
+    };
+
+    if(key.isPressed("right")) {
+      // that.ship.rotational_velocity -= 0.05; // commented out inertia for rotational movement
+      that.ship.rotation -= 0.03
+    };
+
+   
+    if(key.isPressed("up")){
+      var vector = that.ship.getVector()
+      that.ship.vx = (that.ship.vx + vector[0]*0.03)
+      that.ship.vy = (that.ship.vy + vector[1]*0.03)
+    };
   }
 
   Game.prototype.fireBullet = function() {
@@ -68,6 +89,7 @@
     this.draw.call(this, ctx);
     this.checkCollisions();
     this.checkBoundaries()
+    console.log(key.getPressedKeyCodes());
   }
 
   Game.prototype.checkCollisions = function() {
@@ -106,25 +128,13 @@
     }) 
   }
 
+
   Game.prototype.bindKeyHandlers = function(){
-    that = this;
-    key("left", function () {
-      that.ship.rotational_velocity += 0.5;
-    });
-
-    key("right", function () {
-      
-      that.ship.rotational_velocity -= 0.5;
-      
-    });
-
-    key("up", function () {
-      var vector = that.ship.getVector()
-      that.ship.vx = (that.ship.vx + vector[0]*0.5)
-      that.ship.vy = (that.ship.vy + vector[1]*0.5)
-    });
-
-    key("space", that.fireBullet.bind(that));
+    key("space", this.fireBullet.bind(this));
+    
+    // if(key.isPressed("space")){
+//       that.fireBullet.bind(that);
+//     }
   }
 
   Game.prototype.stop = function(){
@@ -136,7 +146,7 @@
     this.addShip();
     this.bindKeyHandlers();
     var context = this.canvas.getContext('2d');
-    this.handle = setInterval( this.step.bind(this, context), 0.5 );
+    this.handle = setInterval( this.step.bind(this, context), 5 );
   }
 
 })(this);
