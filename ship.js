@@ -63,8 +63,10 @@
   }
 
   Ship.prototype.move = function(){
-    this.posx = this.posx + (this.vx * 0.995);
-    this.posy = this.posy + (this.vy * 0.995);
+    this.vx = this.vx * 0.995;
+    this.vy = this.vy * 0.995;
+    this.posx = this.posx + this.vx;
+    this.posy = this.posy + this.vy;
     
     // commented out inertia for rotational movement
     // this.rotational_velocity = 0.99 * this.rotational_velocity

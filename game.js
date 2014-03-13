@@ -53,19 +53,19 @@
     that = this;
     if(key.isPressed("left")){
       // that.ship.rotation_velocity += 0.05 // commented out inertia for rotational movement
-      that.ship.rotation += 0.03;
+      that.ship.rotation += 0.04;
     };
 
     if(key.isPressed("right")) {
       // that.ship.rotational_velocity -= 0.05; // commented out inertia for rotational movement
-      that.ship.rotation -= 0.03
+      that.ship.rotation -= 0.04
     };
 
    
     if(key.isPressed("up")){
       var vector = that.ship.getVector()
-      that.ship.vx = (that.ship.vx + vector[0]*0.01)
-      that.ship.vy = (that.ship.vy + vector[1]*0.01)
+      that.ship.vx = (that.ship.vx + vector[0]*0.08)
+      that.ship.vy = (that.ship.vy + vector[1]*0.08)
     };
   }
 
@@ -89,7 +89,10 @@
     this.draw.call(this, ctx);
     this.checkCollisions();
     this.checkBoundaries()
-    console.log(key.getPressedKeyCodes());
+    
+    if(this.asteroids < 1){
+      this.addAsteroids(10)
+    }
   }
 
   Game.prototype.checkCollisions = function() {
