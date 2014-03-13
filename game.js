@@ -64,8 +64,8 @@
    
     if(key.isPressed("up")){
       var vector = that.ship.getVector()
-      that.ship.vx = (that.ship.vx + vector[0]*0.03)
-      that.ship.vy = (that.ship.vy + vector[1]*0.03)
+      that.ship.vx = (that.ship.vx + vector[0]*0.01)
+      that.ship.vy = (that.ship.vy + vector[1]*0.01)
     };
   }
 
@@ -113,6 +113,7 @@
         asteroid.posy = off[1];
       }
     })
+    
     var removals = []
     this.bullets.forEach(function(bullet){
       var off = bullet.isOffTheGrid(that.DIM_X, that.DIM_Y)
@@ -125,16 +126,18 @@
     })
     removals.forEach(function(idx){
       that.bullets.splice(idx, 1);
-    }) 
+    })
+    var off = this.ship.isOffTheGrid(this.DIM_X, this.DIM_Y);
+    if(off){
+      this.ship.posx = off[0];
+      this.ship.posy = off[1];
+    }
   }
 
 
   Game.prototype.bindKeyHandlers = function(){
     key("space", this.fireBullet.bind(this));
-    
-    // if(key.isPressed("space")){
-//       that.fireBullet.bind(that);
-//     }
+  
   }
 
   Game.prototype.stop = function(){
@@ -142,7 +145,7 @@
   }
 
   Game.prototype.start = function() {
-    this.addAsteroids(0);
+    this.addAsteroids(10);
     this.addShip();
     this.bindKeyHandlers();
     var context = this.canvas.getContext('2d');

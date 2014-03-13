@@ -11,7 +11,7 @@
 
   Asteroid.RADIUS = 15;
 
-  Asteroid.MAX_VEL = 1;
+  Asteroid.MAX_VEL = 0.5;
 
   Asteroid.randomAsteroid = function(dimX, dimY) {
     var posx = Math.random() * dimX;

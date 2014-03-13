@@ -4,7 +4,7 @@
   var Ship = Asteroids.Ship = function(midx, midy) {
     Asteroids.MovingObject.call(this, midx, midy, 0, 0, Ship.RADIUS, Ship.COLOR);
     this.rotational_velocity = 0
-    this.rotation =  Math.PI / 3;
+    this.rotation =  Math.PI;
   }
 
   Ship.inherits(Asteroids.MovingObject);
