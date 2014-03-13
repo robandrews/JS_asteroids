@@ -16,7 +16,7 @@
     }
   }
 
-  Game.prototype.addShips = function() {
+  Game.prototype.addShip = function() {
     this.ship = new Asteroids.Ship(this.DIM_X / 2, this.DIM_Y / 2);
   }
 
@@ -43,7 +43,6 @@
       el.move();
       el.counter++;
       el.hitAsteroids();
-      console.log(el.counter);
     })
 
     this.ship.move();
@@ -110,17 +109,19 @@
   Game.prototype.bindKeyHandlers = function(){
     that = this;
     key("left", function () {
-      that.ship.rotation += Math.PI*(0.05);
+      that.ship.rotational_velocity += 0.5;
     });
 
     key("right", function () {
-      that.ship.rotation -= Math.PI*(0.05);
+      
+      that.ship.rotational_velocity -= 0.5;
+      
     });
 
     key("up", function () {
       var vector = that.ship.getVector()
-      that.ship.vx = (that.ship.vx + vector[0]*0.1)
-      that.ship.vy = (that.ship.vy + vector[1]*0.1)
+      that.ship.vx = (that.ship.vx + vector[0]*0.5)
+      that.ship.vy = (that.ship.vy + vector[1]*0.5)
     });
 
     key("space", that.fireBullet.bind(that));
@@ -131,13 +132,12 @@
   }
 
   Game.prototype.start = function() {
-    this.addAsteroids(10);
-    this.addShips();
+    this.addAsteroids(0);
+    this.addShip();
     this.bindKeyHandlers();
     var context = this.canvas.getContext('2d');
     this.handle = setInterval( this.step.bind(this, context), 0.5 );
   }
-
 
 })(this);
 

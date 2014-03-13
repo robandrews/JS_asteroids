@@ -3,6 +3,7 @@
 
   var Ship = Asteroids.Ship = function(midx, midy) {
     Asteroids.MovingObject.call(this, midx, midy, 0, 0, Ship.RADIUS, Ship.COLOR);
+    this.rotational_velocity = 0
     this.rotation =  Math.PI / 3;
   }
 
@@ -50,6 +51,13 @@
 
   }
 
+  Ship.prototype.move = function(){
+    this.posx = this.posx + (this.vx * 0.995);
+    this.posy = this.posy + (this.vy * 0.995);
+    this.rotational_velocity = 0.99 * this.rotational_velocity
+    this.rotation = this.rotation + (this.rotational_velocity * (Math.PI/180));
+    
+  }
   Ship.prototype.fireBullet = function(game){
     var direction = this.getVector();
     return new Asteroids.Bullet(this.posx, this.posy, direction, game);
