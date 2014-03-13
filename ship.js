@@ -20,14 +20,14 @@
   }
 
   Ship.prototype.draw = function(ctx) {
-    var p1x = this.radius * Math.sin(this.rotation);
-    var p1y = this.radius * Math.cos(this.rotation);
+    var p1x = this.radius * Math.sin(this.rotation)*1.6;
+    var p1y = this.radius * Math.cos(this.rotation)*1.6;
 
-    var p2x = this.radius * Math.sin(this.rotation + 120 * (Math.PI / 180) );
-    var p2y = this.radius * Math.cos(this.rotation + 120 * (Math.PI / 180) );
+    var p2x = this.radius * Math.sin(this.rotation + 120 * (Math.PI / 180) )*1;
+    var p2y = this.radius * Math.cos(this.rotation + 120 * (Math.PI / 180) )*1;
 
-    var p3x = this.radius * Math.sin(this.rotation + 240 * (Math.PI / 180) );
-    var p3y = this.radius * Math.cos(this.rotation + 240 * (Math.PI / 180) );
+    var p3x = this.radius * Math.sin(this.rotation + 240 * (Math.PI / 180) )*1;
+    var p3y = this.radius * Math.cos(this.rotation + 240 * (Math.PI / 180) )*1;
 
     ctx.fillStyle = this.color;
     ctx.beginPath();
@@ -40,15 +40,26 @@
     ctx.fillStyle = this.color;
     ctx.beginPath();
     ctx.arc(
-      this.posx + p1x,
-      this.posy + p1y,
-      this.radius / 4,
+      this.posx + p2x,
+      this.posy + p2y,
+      this.radius / 3,
       0,
       2 * Math.PI,
       false
     );
     ctx.fill();
-
+    
+    ctx.fillStyle = this.color;
+    ctx.beginPath();
+    ctx.arc(
+      this.posx + p3x,
+      this.posy + p3y,
+      this.radius / 3,
+      0,
+      2 * Math.PI,
+      false
+    );
+    ctx.fill();
   }
 
   Ship.prototype.move = function(){

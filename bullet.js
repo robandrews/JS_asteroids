@@ -9,7 +9,7 @@
 
   Bullet.inherits(Asteroids.MovingObject);
 
-  Bullet.RADIUS = 4;
+  Bullet.RADIUS = 3;
   Bullet.COLOR = "black";
 
   Bullet.prototype.hitAsteroids = function() {
@@ -22,4 +22,4 @@
     })
   }
 
-})(this);
+})(this); 
