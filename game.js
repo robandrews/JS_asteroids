@@ -8,11 +8,13 @@
     this.canvas = canvas;
     this.DIM_X = this.canvas.width;
     this.DIM_Y = this.canvas.height;
+    this.score = 0;
+    this.level = 1;
   }
   
   Game.prototype.addAsteroids = function (numAsteroids) {
     for(var i = 0; i < numAsteroids; i++){
-      this.asteroids.push( Asteroids.Asteroid.randomAsteroid(this.DIM_X, this.DIM_Y) );
+      this.asteroids.push( Asteroids.Asteroid.randomAsteroid(this.DIM_X, this.DIM_Y, this.ship) );
     }
   }
 
@@ -53,19 +55,19 @@
     that = this;
     if(key.isPressed("left")){
       // that.ship.rotation_velocity += 0.05 // commented out inertia for rotational movement
-      that.ship.rotation += 0.04;
+      that.ship.rotation += 0.03;
     };
 
     if(key.isPressed("right")) {
       // that.ship.rotational_velocity -= 0.05; // commented out inertia for rotational movement
-      that.ship.rotation -= 0.04
+      that.ship.rotation -= 0.03;
     };
 
    
     if(key.isPressed("up")){
       var vector = that.ship.getVector()
-      that.ship.vx = (that.ship.vx + vector[0]*0.08)
-      that.ship.vy = (that.ship.vy + vector[1]*0.08)
+      that.ship.vx = (that.ship.vx + vector[0]*0.06)
+      that.ship.vy = (that.ship.vy + vector[1]*0.06)
     };
   }
 
@@ -76,6 +78,8 @@
   Game.prototype.removeAsteroid = function(asteroid){
     var asteroid_index = this.asteroids.indexOf(asteroid);
     this.asteroids.splice(asteroid_index, 1);
+    this.score += (this.level*10);
+    console.log(this.score);
   }
 
   Game.prototype.removeBullet = function(bullet){
@@ -91,6 +95,7 @@
     this.checkBoundaries()
     
     if(this.asteroids < 1){
+      this.level+=1;
       this.addAsteroids(10)
     }
   }
@@ -148,8 +153,8 @@
   }
 
   Game.prototype.start = function() {
-    this.addAsteroids(10);
     this.addShip();
+    this.addAsteroids(10);
     this.bindKeyHandlers();
     var context = this.canvas.getContext('2d');
     this.handle = setInterval( this.step.bind(this, context), 5 );

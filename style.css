@@ -1,7 +1,6 @@
-#canvas{
+canvas{
   border-style:ridge;
   border-width: 5px;
   border-color: black;
-  margin:0px auto;
   padding:15px;
 }
