@@ -34,7 +34,16 @@
     });
 
     this.ship.draw(ctx);
+    
+    // this.drawScore(ctx);
   }
+  
+  // Game.prototype.drawScore = function(ctx){
+  //   ctx.clearRect (0 , 0 , 150, 20 );
+  //   ctx.fillStyle = "black";
+  //   context.font = "16px Arial";
+  //   context.fillText("Test", 20, 20);
+  // }
 
   Game.prototype.move = function () {
     this.updateVelocities();
@@ -55,14 +64,13 @@
     that = this;
     if(key.isPressed("left")){
       // that.ship.rotation_velocity += 0.05 // commented out inertia for rotational movement
-      that.ship.rotation += 0.03;
+      that.ship.rotation += 0.04;
     };
 
     if(key.isPressed("right")) {
       // that.ship.rotational_velocity -= 0.05; // commented out inertia for rotational movement
-      that.ship.rotation -= 0.03;
+      that.ship.rotation -= 0.04;
     };
-
    
     if(key.isPressed("up")){
       var vector = that.ship.getVector()
@@ -92,13 +100,17 @@
     this.checkBoundaries.call(this);
     this.draw.call(this, ctx);
     this.checkCollisions();
-    this.checkBoundaries()
-    
+    this.checkLevelUp()
+
+  }
+  
+  Game.prototype.checkLevelUp = function(){
     if(this.asteroids < 1){
       this.level+=1;
       this.addAsteroids(10)
     }
   }
+  
 
   Game.prototype.checkCollisions = function() {
     var that = this;
