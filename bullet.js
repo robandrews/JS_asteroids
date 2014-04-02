@@ -10,7 +10,7 @@
   Bullet.inherits(Asteroids.MovingObject);
 
   Bullet.RADIUS = 3;
-  Bullet.COLOR = "black";
+  Bullet.COLOR = "red";
 
   Bullet.prototype.hitAsteroids = function() {
     var that = this

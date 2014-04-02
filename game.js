@@ -24,7 +24,8 @@
 
   Game.prototype.draw = function (ctx) {
     ctx.clearRect(0, 0, this.DIM_X, this.DIM_Y);
-
+    ctx.fillStyle = "black";
+    ctx.fillRect(0,0,this.DIM_X, this.DIM_Y)
     this.asteroids.forEach( function (el) {
       el.draw(ctx);
     });
@@ -64,18 +65,18 @@
     that = this;
     if(key.isPressed("left")){
       // that.ship.rotation_velocity += 0.05 // commented out inertia for rotational movement
-      that.ship.rotation += 0.04;
+      that.ship.rotation += 0.035;
     };
 
     if(key.isPressed("right")) {
       // that.ship.rotational_velocity -= 0.05; // commented out inertia for rotational movement
-      that.ship.rotation -= 0.04;
+      that.ship.rotation -= 0.035;
     };
    
     if(key.isPressed("up")){
       var vector = that.ship.getVector()
-      that.ship.vx = (that.ship.vx + vector[0]*0.06)
-      that.ship.vy = (that.ship.vy + vector[1]*0.06)
+      that.ship.vx = (that.ship.vx + vector[0]*0.05)
+      that.ship.vy = (that.ship.vy + vector[1]*0.05)
     };
   }
 
