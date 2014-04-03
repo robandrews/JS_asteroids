@@ -1,24 +1,31 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Asteroids</title>
-    <script src='inherits.js'></script>
-    <script src='moving_object.js'></script>
-    <script src='asteroid.js'></script>
-    <script src='ship.js'></script>
-    <script src='bullet.js'></script>
-    <script src="keymaster.js"></script>
-    <script src='game.js'></script>
-    <link href='http://fonts.googleapis.com/css?family=Gafata' rel='stylesheet' type='text/css'>
-    <link href="style.css" rel="stylesheet">
+  <title>Asteroids</title>
+  <script src='inherits.js'></script>
+  <script src='moving_object.js'></script>
+  <script src='asteroid.js'></script>
+  <script src='ship.js'></script>
+  <script src='bullet.js'></script>
+  <script src="keymaster.js"></script>
+  <script src='game.js'></script>
+  <link href='http://fonts.googleapis.com/css?family=Gafata' rel='stylesheet' type='text/css'>
+  <link href="style.css" rel="stylesheet">
 </head>
 <body>
   
   <h1 style="font-family: 'Gafata', sans-serif;">Asteroids</h1>
+  <div class="grid_8 scoreboard">
+    <h3 class="score">Score: <span id="num-score">0</span></h3>
+    <h3 class="level">Level: <span id="num-level">1</span></h3>
+  </div>
+  <div class="grid_8">
     <canvas id="canvas" width="700" height="500"></canvas>
-    <script>
-        var canvas = document.getElementById("canvas");
-        new Asteroids.Game(canvas).start();
-    </script>
+  </div>
+
+  <script>
+  var canvas = document.getElementById("canvas");
+  new Asteroids.Game(canvas).start();
+  </script>
 </body>
 </html>

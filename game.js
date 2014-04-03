@@ -88,7 +88,7 @@
     var asteroid_index = this.asteroids.indexOf(asteroid);
     this.asteroids.splice(asteroid_index, 1);
     this.score += (this.level*10);
-    console.log(this.score);
+    document.getElementById("num-score").innerHTML=this.score;
   }
 
   Game.prototype.removeBullet = function(bullet){
@@ -108,6 +108,7 @@
   Game.prototype.checkLevelUp = function(){
     if(this.asteroids < 1){
       this.level+=1;
+      document.getElementById("num-level").innerHTML=this.level;
       this.addAsteroids(10)
     }
   }
